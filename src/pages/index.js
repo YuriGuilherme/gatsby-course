@@ -1,5 +1,6 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
+
 import Layout from "../components/Layout"
 import SEO from "../components/seo"
 import PostItem from "../components/PostItem"
@@ -11,6 +12,9 @@ const IndexPage = () => {
               allMarkdownRemark {
                 edges {
                   node {
+                    fields {
+                      slug
+                    }
                     frontmatter {
                       background
                       category
@@ -36,11 +40,12 @@ const IndexPage = () => {
             { postList.map(({
                 node: {
                     frontmatter: { background, category, date, description, title },
+                    fields: { slug },
                 },
                 timeToRead,
             }) => (
                 <PostItem
-                    slug="/about/"
+                    slug={slug}
                     background={background}
                     category={category}
                     date={date}
